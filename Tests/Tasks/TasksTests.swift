@@ -23,7 +23,12 @@ class TasksTests: XCTestCase {
         
         let result = try Task.run("printf")
         XCTAssertEqual(result.code, 1)
-        XCTAssertEqual(result.stderr, "usage: printf format [arguments ...]")
+        #if os(Linux)
+            let exp = "usage: printf format [arguments ...]"
+        #else
+            let exp = "usage: printf format [arguments ...]"
+        #endif
+        XCTAssertEqual(result.stderr, exp)
         XCTAssertEqual(result.stdout, "")
     }
 }
