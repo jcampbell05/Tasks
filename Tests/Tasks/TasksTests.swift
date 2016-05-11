@@ -24,7 +24,7 @@ class TasksTests: XCTestCase {
         let result = try Task.run("printf")
         XCTAssertEqual(result.code, 1)
         #if os(Linux)
-            let exp = "usage: printf format [arguments ...]"
+            let exp = "printf: missing operand\nTry \'printf --help\' for more information."
         #else
             let exp = "usage: printf format [arguments ...]"
         #endif
