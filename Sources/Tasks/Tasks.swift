@@ -22,7 +22,7 @@ public struct Task {
     
     public static func run(_ args: [String]) throws -> TaskResult {
         
-        let task = NSTask()
+        let task = Foundation.Task()
         
         //TODO: also inherit environment
 
@@ -31,19 +31,19 @@ public struct Task {
         task.launchPath = try which(args.removeFirst())
         task.arguments = args
         
-        let stdout = NSPipe()
+        let stdout = Pipe()
         task.standardOutput = stdout
         let stdoutHandle = stdout.fileHandleForReading
         
-        let stderr = NSPipe()
+        let stderr = Pipe()
         task.standardError = stderr
         let stderrHandle = stderr.fileHandleForReading
         
         task.launch()
         task.waitUntilExit()
         
-        let stdoutString = (String(data: stdoutHandle.readDataToEndOfFile(), encoding: NSUTF8StringEncoding) ?? "").trimRight()
-        let stderrString = (String(data: stderrHandle.readDataToEndOfFile(), encoding: NSUTF8StringEncoding) ?? "").trimRight()
+        let stdoutString = (String(data: stdoutHandle.readDataToEndOfFile(), encoding: String.Encoding.utf8) ?? "").trimRight()
+        let stderrString = (String(data: stderrHandle.readDataToEndOfFile(), encoding: String.Encoding.utf8) ?? "").trimRight()
         
         let result = TaskResult(code: task.terminationStatus, stdout: stdoutString, stderr: stderrString)
         return result
