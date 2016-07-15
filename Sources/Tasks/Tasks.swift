@@ -20,14 +20,17 @@ public struct Task {
         return try run(args)
     }
     
-    public static func run(_ args: [String]) throws -> TaskResult {
+    public static func run(_ args: [String], pwd: String? = nil, inheritEnvironment: Bool = true) throws -> TaskResult {
         
         let task = NSTask()
         
-        //TODO: also inherit environment
-
         var args = args
         
+        if let pwd = pwd {
+            task.currentDirectoryPath = pwd
+        }
+        
+        task.environment = NSProcessInfo.processInfo().environment
         task.launchPath = try which(args.removeFirst())
         task.arguments = args
         
