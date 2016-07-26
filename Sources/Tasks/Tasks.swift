@@ -22,7 +22,7 @@ public struct Task {
     
     public static func run(_ args: [String], pwd: String? = nil, inheritEnvironment: Bool = true) throws -> TaskResult {
         
-        let task = NSTask()
+        let task = Foundation.Task()
         
         var args = args
         
@@ -30,23 +30,23 @@ public struct Task {
             task.currentDirectoryPath = pwd
         }
         
-        task.environment = NSProcessInfo.processInfo().environment
+        task.environment = ProcessInfo.processInfo.environment
         task.launchPath = try which(args.removeFirst())
         task.arguments = args
         
-        let stdout = NSPipe()
+        let stdout = Pipe()
         task.standardOutput = stdout
         let stdoutHandle = stdout.fileHandleForReading
         
-        let stderr = NSPipe()
+        let stderr = Pipe()
         task.standardError = stderr
         let stderrHandle = stderr.fileHandleForReading
         
         task.launch()
         task.waitUntilExit()
         
-        let stdoutString = (String(data: stdoutHandle.readDataToEndOfFile(), encoding: NSUTF8StringEncoding) ?? "").trimRight()
-        let stderrString = (String(data: stderrHandle.readDataToEndOfFile(), encoding: NSUTF8StringEncoding) ?? "").trimRight()
+        let stdoutString = (String(data: stdoutHandle.readDataToEndOfFile(), encoding: String.Encoding.utf8) ?? "").trimRight()
+        let stderrString = (String(data: stderrHandle.readDataToEndOfFile(), encoding: String.Encoding.utf8) ?? "").trimRight()
         
         let result = TaskResult(code: task.terminationStatus, stdout: stdoutString, stderr: stderrString)
         return result
@@ -79,12 +79,12 @@ func which(_ tool: String) throws -> String {
         return tool
     }
     let result = try Task.run("/bin/sh", "-c", "which \(tool)")
-    guard result.code == 0 else { throw Error("Failed to find tool \"\(tool)\"") }
+    guard result.code == 0 else { throw TaskError("Failed to find tool \"\(tool)\"") }
     let path = result.stdout
     return path
 }
 
-public struct Error: ErrorProtocol {
+public struct TaskError: Error {
 
     public let description: String
     init(_ description: String) {
