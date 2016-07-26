@@ -30,7 +30,12 @@ public struct Task {
             task.currentDirectoryPath = pwd
         }
         
-        task.environment = ProcessInfo.processInfo.environment
+        #if os(Linux)
+        let processInfo = ProcessInfo.processInfo()
+        #else
+        let processInfo = ProcessInfo.processInfo
+        #endif
+        task.environment = processInfo.environment
         task.launchPath = try which(args.removeFirst())
         task.arguments = args
         
