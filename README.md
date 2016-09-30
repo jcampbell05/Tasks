@@ -1,12 +1,9 @@
 # Tasks
 
-[![Build Status](https://travis-ci.org/czechboy0/Tasks.svg?branch=master)](https://travis-ci.org/czechboy0/Tasks)
-[![Latest Release](https://img.shields.io/github/release/czechboy0/tasks.svg)](https://github.com/czechboy0/tasks/releases/latest)
+[![Build Status](https://travis-ci.org/jcampbell05/Tasks.svg?branch=master)](https://travis-ci.org/jcampbell05/Tasks)
+[![Latest Release](https://img.shields.io/github/release/jcampbell05/tasks.svg)](https://github.com/jcampbell05/tasks/releases/latest)
 ![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20OS%20X-blue.svg)
 ![Package Managers](https://img.shields.io/badge/package%20managers-SwiftPM-yellow.svg)
-
-[![Blog](https://img.shields.io/badge/blog-honzadvorsky.com-green.svg)](http://honzadvorsky.com)
-[![Twitter Czechboy0](https://img.shields.io/badge/twitter-czechboy0-green.svg)](http://twitter.com/czechboy0)
 
 > Run shell scripts from your Swift code. Linux &amp; OS X ready.
 
