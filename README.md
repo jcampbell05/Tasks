@@ -28,7 +28,7 @@ do {
 ## Swift Package Manager
 
 ```swift
-.Package(url: "https://github.com/czechboy0/Tasks.git", majorVersion: 0, minor: 3)
+.Package(url: "https://github.com/czechboy0/Tasks.git", majorVersion: 0, minor: 4)
 ```
 
 :blue_heart: Code of Conduct
