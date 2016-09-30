@@ -1,5 +1,5 @@
 import XCTest
-@testable import TasksTestSuite
+@testable import TasksTests
 
 XCTMain([
 	testCase(TasksTests.allTests)
